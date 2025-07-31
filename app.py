@@ -26,7 +26,7 @@ students = [
     (98, 'Raj', 25)
 ]
 
-cursor.executemany("INSERT INTO students (student_id, name, age) VALUES (%s, %s, %s)", students)
+cursor.executemany("INSERT IGNORE INTO students (student_id, name, age) VALUES (%s, %s, %s)", students)
 conn.commit()
 
 # Fetch and print

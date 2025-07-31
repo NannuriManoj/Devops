@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: student_mysql        # Mysql container name -- our wish
+    restart: always
+    environment:            # Environment variables for MySQL   
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: student_db
+    ports:                              # Expose MySQL port -- can be seen in the mysql workbench
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql  #  Persist MySQL data
+
+  app:
+    build: .                            # Build the Dockerfile in the current directory
+    container_name: student_app      # App container name -- our wish
+    depends_on:               # App depends on db service 
+      - db
+    restart: always
+volumes:                          # Define named volumes
+  mysql_data:
